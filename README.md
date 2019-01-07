@@ -24,7 +24,7 @@ C++ uses the following memory allocation:
 | **code (text)**        | 
 
 
-Assuming the following code"
+Assuming the following code:
 
 ```c++
 // declaration of global variables
