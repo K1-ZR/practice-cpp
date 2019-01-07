@@ -15,7 +15,8 @@
 *Their lifetime* is the duration of the program.  
 
 ## Stack
-C++ uses the following memory allocation:  
+C++ uses the following memory allocation: 
+
 | **heap (free store)**  | 
 | -----------------------| 
 | **stack**              | 
@@ -46,34 +47,46 @@ int function funA()
 
 When C++ enters a function or block of code, it creates a stack containing its local variables. When C++ exits a function or block of code, the corresponding stack is removed. 
 
-So the memory looks the followings when:
+So the memory looks like the followings when:
 
 1. in `main` before entering `funA`:  
 
-| **heap**               | 
-| -----------------------| 
-| **stack main: A**      | 
-| **static: G**          |
-| **code**               | 
-
+| **heap**         |      | 
+| -----------------|------| 
+| **stack main:**  | A    | 
+| **static:**      | G    | 
+| **code**         |      | 
+ 
 2. in `main` after entering `funA`:  
 
-| **heap**               | 
-| -----------------------| 
-| **stack funA: localA** | 
-| **stack main: A**      | 
-| **static: G**          | 
-| **code**               | 
+| **heap**         |      | 
+| -----------------|------| 
+| **stack funA:**  |localA| 
+| **stack main:**  | A    | 
+| **static:**      | G    |
+| **code**         |      | 
+
 
 3. in `main` returning from `funA`:  
 
-| **heap**               | 
-| -----------------------| 
-| **stack main: A**      | 
-| **static: G**          | 
-| **code**               | 
+| **heap**         |      | 
+| -----------------|------| 
+| **stack main:**  | A    | 
+| **static:**      | G    |
+| **code**         |      | 
 
 * When C++ is in `funA`, `main`'s variables exists, but they are out of **scope**. We don't have access to them.
 * When `funA` is called: C++ make a stack for `funA`, does stuff, return (pass) the answer to the parent function. Passing is by either copying or address. 
 
 ## Heap
+C++ use *dynamic memory allocation* to allocate memory during program execution (run time).
+
+`new` command is used for dynamic allocation. It 
+1. allocates memory on heap 
+2. return the address
+
+So we need a pointer to hold the address.
+The pointer itself exists on the stack, while holds address of memory location on the heap. 
+```c++
+int* p = new int;
+```
