@@ -1,4 +1,4 @@
-# Memory allocation, stack, heap
+# Memory allocation, Stack, Heap
 
 ## Intro
 **Scope:** where in a program a variable can be referenced.
@@ -160,7 +160,7 @@ int funA(int localA)
 ```
 
 
-# File structures
+# Files structure
 * `main.cpp` file for run the program. To include declaration use `#include xxx.hpp`
 * `xxx.hpp` file/files for function declaration, initialize constants, ... . To avoid multiple declarations header files has the following structure:
 ```C++
