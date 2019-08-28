@@ -8,7 +8,7 @@
 - [Pointer](#pointer)
 - [Functions](#functions)
 - [Class](#class)
-- [Variable:](#variable)
+- [Variable](#variable)
 - [Casting](#casting)
 - [Operator](#operator)
 - [Array](#array)
@@ -280,13 +280,13 @@ int main(){
 * The definition of the member function `area` has been included directly within the definition of class `Rectangle`.
 * Conversely, `set_values` it is merely declared with its prototype within the class, but its definition is outside it.
 
-# Variable:
+# Variable
 | Type           | Keyword     | Size
 | ---            | ---         | ---
 |Boolean         | `bool`      |
 |Character       | `char`      |
-|Integer         | `[signed|unsigned] int`       | 4bytes
-|                | `[signed|unsigned] short int` | 2bytes
+|Integer         | `[signed/unsigned] int`       | 4bytes
+|                | `[signed/unsigned] short int` | 2bytes
 |Floating        | `float`     | 4bytes
 |Double floating | `double`    | 8bytes
 |Valueless       | `void`      |
