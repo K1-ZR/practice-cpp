@@ -1,5 +1,5 @@
 
-- [Basics: Memory Allocation](#basics-memory-allocation)
+- [Memory Allocation](#memory-allocation)
   - [Stack](#stack)
   - [Heap](#heap)
 - [Declaration, Definition](#declaration-definition)
@@ -15,17 +15,17 @@
   - [multidimensional array](#multidimensional-array)
   - [Passing to a function](#passing-to-a-function)
 - [Loop](#loop)
-- [string](#string)
+- [String](#string)
 - [Number](#number)
 - [IO](#io)
 - [Run a C++](#run-a-c)
 <!--  -->
 <!--  -->
 <!--  -->
-# Basics: Memory Allocation
+# Memory Allocation
 
 * **Scope**: where in a program a variable can be referenced.
-* **Lifetime**: how long a variable exist in memory.  
+* **Lifetime**: how long a variable exist in memory.
 * **Local variables**: variables that are declared within a function or block of code. 
 *Block of code* can be a loop, a condition, etc.  
 Local variable's  *scope* is limited from the point of declaration to the end of the function or the block of code in which they are declared.  
@@ -35,8 +35,6 @@ Global variable's *scope* is anywhere in the program.
 Their *lifetime* is the duration of the program.  
 
 `{}` create block of code.
-
-
 
 ## Stack
 `C++` uses the following memory allocation: 
@@ -65,7 +63,7 @@ int function funA()
 }
 ```
 First `C++` creates the *static* to store global variables.
-Also, when `C++` enters a function or a block of code, it creates a *stack* containing its local variables. When C++ exits a function or a block of code, it removes the corresponding stack. 
+Also, when `C++` enters a function or a block of code, it creates a *stack* containing its local variables. When `C++` exits a function or a block of code, it removes the corresponding stack. 
 
 So the memory looks like this when we run the program:
 
@@ -92,7 +90,7 @@ The *pointer* itself exists on the *stack*, while holds address of a memory loca
 ```C++
 int* P = new int;
 ```
-* `new` only designate a memory location on the heap brings its address, the memory location does not have value. `*<pointer>` gives access to the value of the pointer.
+* `new` only designates a memory location on the heap brings its address, the memory location does not have value. `*<pointer>` gives access to the value of the pointer.
 ```C++
 *P = 50;
 ```
@@ -241,14 +239,9 @@ int max(int num1, int num2) {
 # Class
 ```c++
 class class_name {
-
-  access_specifier_1:
-    member1;
-    ...
-
-  access_specifier_2:
-    member2;
-    ...
+  // member deceleration
+  <access_specifier>:
+    <type> <member_name>;
 };
 ```
 
@@ -258,9 +251,7 @@ The *access specifiers* are
 * `protected`: accessible from other members of the same class (*friends*), also from members of their derived classes.
 * `public`: members are accessible from anywhere where the object is visible.
 
-Scope operator, `::`, is used in the definition of a function member of a class outside the class itself.
-
-Access members of a class by inserting a dot `.` between object name and member name. 
+Example: 
 
 ```c++
 #include <iostream>
@@ -284,6 +275,8 @@ int main(){
   return 0;
 }
 ```
+* Scope operator, `::`, is used in the definition of a function member of a class outside the class itself.
+* Access members of a class by inserting a dot `.` between object name and member name.
 * The definition of the member function `area` has been included directly within the definition of class `Rectangle`.
 * Conversely, `set_values` it is merely declared with its prototype within the class, but its definition is outside it.
 
@@ -299,11 +292,9 @@ int main(){
 |Valueless       | `void`      |
 
 
-**Static modifier**:
-It Makes allows the local variables to maintain their values between function calls.
-They will exist during the life-time of the program.
-Instead of creating and destroying them each time they comes into and goes out of scope.
-
+* `static` modifier:
+It allows the local variables to maintain their values between function calls.
+They will exist during the life-time of the program, they just come into and go out of scope.
 The static modifier may also be applied to global variables.
 When this is done, it causes that variable's scope to be restricted to the file in which it is declared.
 
@@ -311,9 +302,9 @@ When this is done, it causes that variable's scope to be restricted to the file 
 static int i;
 ```
 
-**Extern modifier**:
+* `extern` modifier:
 It gives a reference of a global variable that is visible to ALL the program files.
-It is most commonly used when there are two or more files sharing the same global variables or functions.
+It is used when there are two or more files sharing the same global variables or functions.
 
 ```c++
 // First File: main.cpp
@@ -342,7 +333,7 @@ Compile these two files as follows
 $ g++ main.cpp support.cpp -o write
 ```
 
-Define constants:
+* `const` modifier: it defines constants:
 ```c++
 const int  I = 10;
 const char NewLine = '\n';
@@ -430,33 +421,38 @@ matrix[i][j]
 <!--  -->
 <!--  -->
 # Loop 
-* *while* loop: 
+* `for`:
+```c++
+for (int i=0; i<10; i++){
+  ...
+}
+```
+* `while`: 
   Repeats a statement/statements while a given condition is true. It tests the condition before executing the loop body.
-* *do...while* loop: 
+```c++
+while( a != 20 ){
+ ...
+}
+```
+* `do...while`: 
   Like a *while* statement, except that it tests the condition at the end of the loop body.
-* *break* statement:
-  Terminates a loop and transfers execution to the statement immediately following the loop.
-* *continue* statement:
+* `break`:
+  Terminates a loop.
+* `continue`:
   Skips the remainder of a loop
   and immediately retest its condition prior to reiterating.
 
-```c++
-// loop
-for (int i=0; i<10; i++)
-while( a != 20 )
-
-break // terminate loop
-continue // jump to next iteration
-```
-
-# string
+# String
 ```c++
 #include <string>
+
 char greeting[6] = {'H', 'e', 'l', 'l', 'o'};
+
 std::string str1 = greeting;
 std::string str2 = "Hello";
 str3 = str1 + str2;
 str1[3]=str2[1];
+
 // vector to string
 std::vector<char> v;
 std::string str(v.begin(),v.end());
@@ -469,7 +465,6 @@ PAIR1.second = 'G';
 
 # Number
 ```c++
-//
 int division = (int) a / b;
 // 0 = (int)2/3;
 int remainder =a % b;
