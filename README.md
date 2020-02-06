@@ -1,22 +1,22 @@
 
-[Memory Allocation](#memory-allocation) - 
-[Declaration, Definition](#declaration-definition) -
-[Files structure](#files-structure) -
-[Object Oriented Programming](#object-oriented-programming) -
-[Pointer](#pointer) -
-[Functions](#functions) -
-[Class](#class) -
-[Variable](#variable) -
-[Casting](#casting) -
-[Operator](#operator) -
-[Array](#array) -
-[multidimensional array](#multidimensional-array) -
-[Passing to a function](#passing-to-a-function) -
-[Loop](#loop) -
-[String](#string) -
-[Number](#number) -
-[IO](#io) -
-[Run a C++](#run-a-c) -
+[Memory Allocation](#memory-allocation) --
+[Declaration, Definition](#declaration-definition) --
+[Files structure](#files-structure) --
+[Object Oriented Programming](#object-oriented-programming) --
+[Pointer](#pointer) --
+[Functions](#functions) --
+[Class](#class) --
+[Variable](#variable) --
+[Casting](#casting) --
+[Operator](#operator) --
+[Array](#array) --
+[multidimensional array](#multidimensional-array) --
+[Passing to a function](#passing-to-a-function) --
+[Loop](#loop) --
+[String](#string) --
+[Number](#number) --
+[IO](#io) --
+[Run a C++](#run-a-c) --
 <!--  -->
 <!--  -->
 <!--  -->
