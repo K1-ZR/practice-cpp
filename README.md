@@ -25,14 +25,13 @@
 * **Scope**: where in a program a variable can be referenced.
 * **Lifetime**: how long a variable exist in memory.
 * **Local variables**: variables that are declared within a function or block of code. 
-*Block of code* can be a loop, a condition, etc.  
+*Block of code* can be a loop, a condition, etc. (basically between `{}`).
 Local variable's  *scope* is limited from the point of declaration to the end of the function or the block of code in which they are declared.  
 Their *lifetime* is from entering a function or a block of code in which they are declared to termination of it.  
 * **Global variables:** variables declared outside of any function.  
 Global variable's *scope* is anywhere in the program.  
 Their *lifetime* is the duration of the program.  
 
-`{}` create block of code.
 
 ## Stack
 `C++` uses the following memory allocation: 
@@ -43,41 +42,41 @@ Their *lifetime* is the duration of the program.
 To understand how it works, let's assume the following code:
 
 ```c++
-// declaration of global variables
-int G
+#include <stdio.h>
+
+int G; // global variables
+int funA(); // function decleration before being used, similar to variables.
+
 
 int main()
 {
-    // declaration of local variables
-    int A = funA();
-    return A;
+    int A = funA(); //local variables
+    return 0;
 }
 
-int function funA()
+int funA()
 {
-    // declaration of local variables
-    int B = 0;
+    int B = 10; // local variables
     return B;
 }
 ```
 First `C++` creates the *static* to store global variables.
 Also, when `C++` enters a function or a block of code, it creates a *stack* containing its local variables. When `C++` exits a function or a block of code, it removes the corresponding stack. 
 
-So the memory looks like this when we run the program:
-
 <img src="images/stack.png" width="100%">
 
 **Notes**:
 * When `C++` enters a function, parent function's variables exists, but they are out of *scope*. So the user does not have access to them.
-* When a function is called, `C++` makes a stack for that function, does the calculation, return (pass) the answer to the parent function. Passing is by either *copying* or *address*.  
+* When a function is called, `C++` makes a stack for that function, does the calculation, return the answer to the parent function. Passing is by either *copying* or *address*.  
     * *Pass data by a variable*: C++ copy returning value to parent function stack.
     * *Pass data by a pointer*: C++ pass the address of returning value to parent function stack.
 
 ## Heap
-C++ use *dynamic memory allocation* to allocate memory during program execution (run time).
+C++ use *dynamic memory allocation* to allocate memory during program run time.
 The `new` command is used for dynamic allocation. It 
 1. Allocates memory dynamically on the heap 
 2. Returns the *address* of the allocated memory
+3. Does **not** initialize the location with a value
 
 So a *pointer* is needed to hold the *address*.
 The *pointer* itself exists on the *stack*, while holds address of a memory location on the heap. 
@@ -85,81 +84,59 @@ The *pointer* itself exists on the *stack*, while holds address of a memory loca
 <img src="images/heap.png" width="100%">
 
 * `<type>*` declare pointer to the `<type>` value.
+* `*<pointer>` gives access to the value of the pointer.
+* Allocated memory on heap is not deallocated automatically. A common mistake is that when a function ends the pointer automatically vanishes, but the memory location on heap that it used to point is still there. Dynamically allocated memory should be freed using `delete` before the pointer gets deleted.
+* `p` itself still exists and points to nothing (dangling pointer). A common practice is to assign `NULL` to `p` after `delete`.
 ```C++
-int* P = new int;
+int* p = new int;
+*p = 50;
+delete p;
+p = NULL;
 ```
-* `new` only designates a memory location on the heap brings its address, the memory location does not have value. `*<pointer>` gives access to the value of the pointer.
-```C++
-*P = 50;
-```
-
-Allocated memory on heap is not deallocated automatically. A common mistake is that when a function ends the pointer automatically vanishes, but the memory location on heap that it used to point is still there. Dynamically allocated memory should be freed before the pointer gets deleted.
-`delete` frees the memory that `P` is pointing to. 
-```C++
-delete P
-```
-
-`p` itself still exists and points to nothing (dangling pointer). It is a common practice to assign `NULL` to `P` until a new location is assigned to it.
 
 To dynamically allocate a *block of memory*: 
 ```C++
-int* Q = new int[10];
+int* q = new int[10];
+q[i] = 0; 
+delete[] q; 
+
 ```
 * It dynamically allocates memory for 10 integers and returns the pointer to the first element of the sequence. 
+* Use `[]` to access its memebers.
+* To free the dynamically allocated array (in the heap) pointed by a pointer use `delete[]`.
 
-To access them:
-```C++
-Q[i] = i; 
+note: never delete an array that is in the run-time stack. 
+
 ```
-* It is similar to statically allocated array, no asterisk
-
-To free the dynamically allocated array pointed by a pointer:
-```C++
-delete[] Q; 
+int a[100];
+...
+delete [] a; // this corrupt the heap manager
 ```
-<!--  -->
-<!--  -->
-<!--  -->
-# Declaration, Definition
-Functions should be defined before being used, similar to variables.
 
-```C++
-// function declaration
-int funA(int);
+<!--  -->
+<!--  -->
+<!--  -->
 
-int main()
-{
-    ...
-    int A = funA(int)
-    ...
-}
-// function definition
-int funA(int localA)
-{
-    ...
-}
-```
-<!--  -->
-<!--  -->
-<!--  -->
 # Files structure
 * Create a `main.cpp` file for running the program.
-* Use *header* files, `<function>.hpp`, for function declaration, initialize constants, etc.
+* Use *header* files, `<class_name>.hpp`, for class declaration, initialize constants, etc.
 * Use `#include <function>.hpp` to include declarations in `main.cpp`.
-* Use `<function>.cpp` files for definition of functions.
+* Use `<class_name>.cpp` files for class definition.
 
 To avoid multiple declarations, *header* file has the following structure:
 ```C++
-#ifndef MYFUNCTION
-#define MYFUNCTION
+#ifndef MYFOO
+#define MYFOO
 // declarations
 #endif
 ```
+
+<!-- ################################################################### -->
 <!--  -->
 <!--  -->
-<!--  -->
+
 # Object Oriented Programming
-* **Class** is like a blueprint/template. It defines behaviors/states of an object type in terms of *data (instance variables)* and *operations (instance methods)*.
+* **Class** is like a blueprint. It defines behaviors/states of an object type in terms of *data (instance variables)* and *operations (instance methods)*.
 
 * **Object** is an instance of a class.
 
@@ -169,9 +146,11 @@ Example: A dog has states like color, name, etc and
 behaviors like barking, eating, etc.
 
 * **Constructors** is a special method that *instantiate (create)* and *initialize* object.
+
 <!--  -->
 <!--  -->
 <!--  -->
+
 # Pointer
 * **Pointer** is a data type that *points* to another values stored in memory. It accept *address*.
 * `&<non-pointer>` is *address* of a *non-pointer*. 
