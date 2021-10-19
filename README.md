@@ -389,6 +389,40 @@ int main()
 ### std::string
 The length of the C++ string can be changed at runtime because of dynamic allocation of memory, similar to vectors.
 
+## smart pointer
+ince the destructor is automatically called when an object goes out of scope, the dynamically allocated memory would automatically be deleted
+```c++
+#include <iostream>
+using namespace std;
+ 
+template <class T>
+class SmartPtr {
+    T* ptr; // Actual pointer
+public:
+    // Constructor
+    explicit SmartPtr(T* p = NULL) { ptr = p; }
+    // Destructor
+    ~SmartPtr() { delete (ptr); }
+    // Overloading dereferncing operator
+    T& operator*() { return *ptr; }
+    // Overloading arrow operator
+    T* operator->() { return ptr; }
+};
+ 
+int main()
+{
+    SmartPtr<int> ptr(new int());
+    *ptr = 20;
+    cout << *ptr;
+    return 0;
+}
+```
+
+* `std::unique_ptr` https://iamsorush.com/posts/unique-pointers-cpp/
+* `std::shared_ptr` https://iamsorush.com/posts/shared-pointer-cpp/
+* `std::weak_ptr` https://iamsorush.com/posts/weak-pointer-cpp/
+
+
 <!-- ####################################################################### -->
 <!-- ####################################################################### -->
 <!-- ####################################################################### -->
@@ -433,7 +467,25 @@ int main()
     return 0;
 }
 ```
+## Double address operator `&&`
+`int&& a` means `a` is an r-value reference. `&&` is normally only used to declare a parameter of a function and it only takes a r-value expression. 
+```cpp
+void foo(int&& a)
+{
+    // ...
+}
 
+int main()
+{
+    int b;
+    foo(b); // Error. An rValue reference cannot be pointed to a lValue.
+    foo(5); // No error
+    foo(b+3); // No error
+
+    int&& c = b; // Error An rValue reference cannot be pointed to a lValue.
+    int&& d = 5; // NNo error.
+}
+```
 <!-- ####################################################################### -->
 <!-- ####################################################################### -->
 <!-- ####################################################################### -->
@@ -491,7 +543,8 @@ const char NewLine = '\n';
 
 `char *const ptr` : a constant pointer to non-constant character. You cannot change the pointer, but can change the value pointed by pointer. 
 
-`const char * const ptr` : a constant pointer to a constant character. You can neither change the value pointed by pointer nor the pointer itself. 
+`const char *const ptr` : a constant pointer to a constant character. You can neither change the value pointed by pointer nor the pointer itself. 
+`char const *const ptr` is the same as `const char *const ptr`.
 
 <!-- ####################################################################### -->
 <!-- ####################################################################### -->
