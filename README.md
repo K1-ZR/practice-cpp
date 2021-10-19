@@ -1,25 +1,25 @@
 
-[Memory Allocation](#memory-allocation) --
-[Declaration, Definition](#declaration-definition) --
-[Files structure](#files-structure) --
-[Object Oriented Programming](#object-oriented-programming) --
-[Pointer](#pointer) --
-[Functions](#functions) --
-[Class](#class) --
-[Variable](#variable) --
-[Casting](#casting) --
-[Operator](#operator) --
-[Array](#array) --
-[multidimensional array](#multidimensional-array) --
-[Passing to a function](#passing-to-a-function) --
-[Loop](#loop) --
-[String](#string) --
-[Number](#number) --
-[IO](#io) --
-[Run a C++](#run-a-c) --
-<!--  -->
-<!--  -->
-<!--  -->
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
+
+# Files structure
+* Create a `main.cpp` file for running the program.
+* Use *header* files, `<class_name>.hpp`, for class declaration, initialize constants, etc.
+* Use `#include <function>.hpp` to include declarations in `main.cpp`.
+* Use `<class_name>.cpp` files for class definition.
+
+To avoid multiple declarations, *header* file has the following structure:
+```C++
+#ifndef MYFOO
+#define MYFOO
+// declarations
+#endif
+```
+
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
 # Memory Allocation
 
 * **Scope**: where in a program a variable can be referenced.
@@ -46,7 +46,6 @@ To understand how it works, let's assume the following code:
 
 int G; // global variables
 int funA(); // function decleration before being used, similar to variables.
-
 
 int main()
 {
@@ -111,61 +110,17 @@ int a[100];
 delete [] a; // this corrupt the heap manager
 ```
 
-<!--  -->
-<!--  -->
-<!--  -->
-
-# Files structure
-* Create a `main.cpp` file for running the program.
-* Use *header* files, `<class_name>.hpp`, for class declaration, initialize constants, etc.
-* Use `#include <function>.hpp` to include declarations in `main.cpp`.
-* Use `<class_name>.cpp` files for class definition.
-
-To avoid multiple declarations, *header* file has the following structure:
-```C++
-#ifndef MYFOO
-#define MYFOO
-// declarations
-#endif
-```
-
-<!-- ################################################################### -->
-<!--  -->
-<!--  -->
-
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
 # Object Oriented Programming
 * **Class** is like a blueprint. It defines behaviors/states of an object type in terms of *data (instance variables)* and *operations (instance methods)*.
 * **Object** is an instance of a class.
 * **Method** is a behavior of an object.
 
-<!--  -->
-<!--  -->
-<!--  -->
-
-# Pointer
-* **Pointer** is a data type that *points* to another values stored in memory. It accept *address*.
-* `&<non-pointer>` is *address* of a *non-pointer*. 
-* `*<pointer>` is *content* of a *pointer* is referring to. It is also called *dereferencing*.
-
-```C++
-int X = 25;
-int* P = &X;
-
-x = x + 5;
-x = *p + 5;
-*p = *p + 5;
-```
-* `x` and `*p` are identical.
-
-|                    | Type | Name | value | address |
-| ------------------ | -----|------|-------| ------- |
-| integer            | int  | x    | 50    | aaaa    |
-| pointer to integer | int* | p    | aaaa  | bbbb    |
-
-<!--  -->
-<!--  -->
-<!--  -->
-
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
 # Class
 ```c++
 class <class_name> {
@@ -179,7 +134,6 @@ The *access specifiers*:
 * `private`: accessible only from within other members of the same class (*friends*).
 * `protected`: accessible from other members of the same class (*friends*), also from members of their derived classes.
 * `public`: members are accessible from anywhere where the object is visible.
-
 
 ```c++
 #include <iostream>
@@ -204,7 +158,32 @@ int main(){
   return 0;
 }
 ```
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
+# Loop, ... 
+```c++
+for (int i=0; i<10; i++)
+{
+  ...
+}
 
+while( a != 20 ) // tests the condition before executing the loop body
+{ 
+ ...
+}
+
+do
+{
+
+}while( a != 20 ) // tests the condition at the end of the loop body
+```
+* `break`: Terminates a loop.
+* `continue`: Skips the remainder of a loop
+
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
 # Variable
 | Type           | Keyword                       | Size
 | ---            | ---                           | ---
@@ -216,251 +195,76 @@ int main(){
 |Double floating | `double`                      | 8 bytes
 |Valueless       | `void`                        |
 
+## Casting
 
-* `static` modifier:
-It allows the local variables to maintain their values between function calls.
-They will exist during the life-time of the program, they just come into and go out of scope.
-The static modifier may also be applied to global variables.
-When this is done, it causes that variable's scope to be restricted to the file in which it is declared.
-
-```c++
-static int i;
-```
-
-* `extern` modifier:
-It gives a reference of a global variable that is visible to ALL the program files.
-It is used when there are two or more files sharing the same global variables or functions.
-
-```c++
-// First File: main.cpp
-#include <iostream>
-
-int count ;
-extern void write_extern();
-
-main() {
-   count = 5;
-   write_extern();
-}
-
-// Second File: support.cpp
-#include <iostream>
-
-extern int count;
-
-void write_extern(void) {
-   std::cout << "Count is " << count << std::endl;
-}
-```
-
-Compile these two files as follows
-```shell
-$ g++ main.cpp support.cpp -o write
-```
-
-* `const` modifier: it defines constants:
-```c++
-const int  I = 10;
-const char NewLine = '\n';
-```
-
-<!--  -->
-<!--  -->
-<!--  -->
-# Casting
-
-By default `<int>/<int>` is `<int>` and `<double>/<double>` is `<double>`. But casting can be used to change these:
 ```C++
-    <double> = (double) <int>/<int>
-    <int> = (int) <double>/<double>
-```
-# Operator	
-`C ?= A` is equivalent to `C = C ? A`.
-
-# Array
-
-* A vector should not be passed by *value* (the whole vector will be copied and passed as argument), should be passed by **reference** (`vector<char>& my_array`) instead.
-
-Declare array using `<dataType> <arrayName>[<arraySize>]`.
-
-```c++
-float my_vector[5];
-```
-* The argument `my_vector` represents the memory address of first element of array `my_vector[5]`.
-
-Accessing array members by `<arrayName>[<i>]`.
-
-* Suppose the starting address of mark[0] is 2120d. Then, the next address, a[1], will be 2124d, address of a[2] will be 2128d and so on. It's because the size of a float is 4 bytes.
-
-Initializing array:
-```c++
-int my_vector[5] = {19, 10, 8, 17, 9};
+    double x = (double) <int_i>/<int_j>
+    int    i = (int) <double_x>/<double_y>
 ```
 
-## multidimensional array
-Declare:
-```c++
-int x[2][3];
-```
-Initialize:
-```c++
-int  test[2][3] = { {2, 4, 5}, {9, 0 0}};
-```
-
-## Passing to a function
-```c++
-void fun(int m[5]){
-    ...
-}
-
-fun(marks)
-```
-?????????
-And the formal argument int `m[5]` in function declaration converts to `int* m`;
-This pointer points to the same address pointed by the array marks.
-
-```c++
-#include <vector>
-std::vector<int> myvector(size);
-std::vector<int> myvector;
-
-myvector.push_back(n);
-myvector.size();
-myvector[i] = n;
-myvector = {1,2,3,4,5};
-
-myvector.begin();
-myvector.end();
-
-vec.erase(vec.begin() + 1); // remove member 1
-vec.clear(); // remove all members
-
-// matrices
-vector< vector<int> > matrix = { { 0, 1 }, 
-                                 { 1, 0 } }; 
-matrix[i][j]
-```
-
-
-<!--  -->
-<!--  -->
-<!--  -->
-# Loop 
-* `for`:
-```c++
-for (int i=0; i<10; i++){
-  ...
-}
-```
-* `while`: 
-  Repeats a statement/statements while a given condition is true. It tests the condition before executing the loop body.
-```c++
-while( a != 20 ){
- ...
-}
-```
-* `do...while`: 
-  Like a *while* statement, except that it tests the condition at the end of the loop body.
-* `break`:
-  Terminates a loop.
-* `continue`:
-  Skips the remainder of a loop
-  and immediately retest its condition prior to reiterating.
-
-# String
-```c++
-#include <string>
-
-char greeting[6] = {'H', 'e', 'l', 'l', 'o'};
-
-std::string str1 = greeting;
-std::string str2 = "Hello";
-str3 = str1 + str2;
-str1[3]=str2[1];
-
-// vector to string
-std::vector<char> v;
-std::string str(v.begin(),v.end());
-
-// pair
-std::pair <int, char> PAIR1 ; 
-PAIR1.first = 100; 
-PAIR1.second = 'G'; 
-```
-
-# Number
-```c++
-int division = (int) a / b;
-// 0 = (int)2/3;
-int remainder =a % b;
-```
-# IO
-```c++
-std::cout << "hello" << a << std::endl;
-```
-<!--  -->
-<!--  -->
-<!--  -->
-# Run a C++
-```shell
-$ g++ hello.cpp
-$ ./a.out
-```
-
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
 # Pointer
-Pointer is memory location, i.e. address of variable.
-```cpp
-{datatype} *{var_name};
-int      *ptr;
-```
-1. because of `*`, `ptr` is a pointer that holds an address of a memory
-2. because of `int` the pointer's value(s) can be accessed as integer values
+* **Pointer** is a data type that *points* to another values stored in memory. It accept *address*. Pointer is a memory location, i.e. address of variable.
 
-- the operator `&` returns the address of a variable.
-- the p[erator `*` is used for:
-    - To declare a pointer variable: `int *ptr;`
-    - To access the value stored in an memory, also called Deferencing: `*ptr = 20;`
+* `&<non-pointer>` is *address* of a *non-pointer*. 
+* `*<pointer>` is *content* of a *pointer* is referring to. It is also called *dereferencing*.
 
-```cpp
-#include <iostream>
-int main()
-{
-  int var = 10;
-  int *ptr = &var;
-  *ptr = 20;
+```C++
+int var = 25;
+int* ptr = &var;
 
-  std::cout << "value of var=" << var << std::endl;
-  std::cout << "address of var=" << ptr << std::endl;
+var = var + 5;
+var = *ptr + 5;
+*ptr = *ptr + 5;
 
-  int ** ptrr = &ptr
-  **ptrr = 30
-  std::cout << "value of var=" << var << std::endl;
+int ** pptr = &ptr
+**pptr = 30
 
-  return 0;
-}
+printf("Value of Var = %d\n", *ptr);
+printf("Value of Var = %d\n", *Var);
+
+// pointer (address) may be different in different runs
+printf("Address of Var = %p\n", ptr);
+printf("Address of Var = %p\n", &var);
 ```
 
-```cpp
-#include <stdio.h>
-int main()
-{
-    int Var = 10;
-     int *ptr = &Var;
+* `x` and `*p` are identical.
+* because of `*`, `p` is a pointer that holds an address of a memory
+* because of `int` the pointer's value(s) can be accessed as integer values
 
-    printf("Value of Var = %d\n", *ptr);
-    printf("Value of Var = %d\n", *Var);
+|                    | Type | Name | value | address |
+| ------------------ | -----|------|-------| ------- |
+| integer            | int  | x    | 50    | aaaa    |
+| pointer to integer | int* | p    | aaaa  | bbbb    |
 
-    // The output of this line may be different in different runs
-    printf("Address of Var = %p\n", ptr);
-    printf("Address of Var = %p\n", &var);
 
-    *ptr = 20; // Value at address is now 20
-    printf("Address of Var = %d\n", *ptr);
+## Array
+Declare array using `<type> <array_name>[<dim1>][dim2]`.
 
-    return 0;
-}
+```c++
+int my_vector[5]; // declaration + random initialization
+int my_vector[5] = {19, 10, 8, 17, 9}; // declaration + initialization
+int v[3]={};  // declaration + zero initialization
+int *v; // declaration + random initialization
+
+char my_string[6] = {'H', 'e', 'l', 'l', 'o'};
 ```
-## Array and pointer
+* The argument `my_vector` represents the address of the first element of array.
+Then each element is offseted by `sizeof(<type>)`.
+
+```c++
+int my_array[2][3]; // declaration 
+// In general, mat[i][j] is equivalent to *(*(mat+i)+j)
+// Remember mat itself is a pointer
+int  my_array[2][3] = { {2, 4, 5}, 
+                        {9, 0 0} }; // declaration  + initialization
+// mat[0][0] == *(*(mat+0)+0)
+// mat[0][2] == *(*(mat+0)+2)
+// mat[1][2] == *(*(mat+1)+2)
+```
+
 When Pointers are representing an array, some arithmetic operations can be done on pointers:
 - incremented `++`
 - decremented `-`
@@ -472,43 +276,19 @@ When Pointers are representing an array, some arithmetic operations can be done 
 int main()
 {
     int v[3] = {10, 100, 200};
-
     int *ptr;
-
-    // Assign the address of v[0] to ptr
+    // v is the address of the first element
     ptr = v; // or ptr = &v[0]
-
     for (int i = 0; i < 3; i++)
     {
         printf("Value of *ptr = %d\n", *ptr);
         printf("Value of ptr = %p\n\n", ptr);
-        // Increment pointer ptr by 1
-        ptr++;
+        ptr++; // Increment pointer ptr by 1
     }
-    // remember ptr = v so:
-    // ptr[1] == v[1] ...
 }
 ```
 
-An array name acts as a pointer which is equal to the address of the first element. i.g. `v == &v[0]`
-```cpp
-// In general, mat[i][j] is equivalent to *(*(mat+i)+j)
-// Remember mat itself is a pointer
-int mat[2][3]  =  { {16, 18, 20}, {25, 26, 27} };
-// mat[0][0] == *(*(mat+0)+0)
-// mat[0][2] == *(*(mat+0)+2)
-// mat[1][2] == *(*(mat+1)+2)
-```
-
-# Array
-Array decleration:
-- `int v[3];`, random initialization
-- `int v[3]={1,2,3};`
-- `int v[3]={};`, zero initialization
-- `int *v;`, random initialization
-
-Notes:
-The elements are stored at contiguous memory locations.
+If `arr[0]` is stored at address `x`, then `arr[1]` is stored at `x + sizeof(int)` and so on.
 ```cpp
 #include <stdio.h>
 int main()
@@ -524,13 +304,8 @@ int main()
     return 0;
 }
 ```
-If `arr[0]` is stored at address `x`, then `arr[1]` is stored at `x + sizeof(int)` and so on.
 
-Array's disadvantage:
-- Allows a fixed number of elements to be entered which is decided at the time of declaration. Unlike a linked list, an array in C is not dynamic.
-- Insertion and deletion of elements can be costly since the elements are needed to be managed in accordance with the new memory allocation.
-
-Arrays and pointer are two different things (we can check by applying sizeof). Array name indicates the address of first element and arrays are always passed as pointers (even if we use square bracket).
+Arrays and pointer are two different things (we can check by applying sizeof). 
 ```cpp
 #include <iostream>
 using namespace std;
@@ -550,32 +325,92 @@ int main()
 }
 ```
 
+Array's disadvantage:
+- Allows a fixed number of elements to be entered which is decided at the time of declaration. ??? but how about realloc
+
 The advantages of `vector` STL over normal arrays:
-- We do not need pass size as an extra parameter when we declare a vector i.e, Vectors support dynamic sizes (we do not have to initially specify size of a vector).
+- We do not need pass size as an extra parameter when we declare a vector.
+- Vectors support dynamic sizes (we do not have to initially specify size of a vector).
 - We can also resize a vector.
 - Vectors have many in-built function like, removing an element, etc.
 
+## Array as Strings
+Strigns can be stored in two ways: C style string or C++ style string (string calss)
+
+### C style string
+a string can be referred to using:
+- a character pointer
+```c++
+char str[4] = "GfG"; /* Stored in stack segment
+                        One extra for string terminator*/
+
+char str[4] = {‘G’, ‘f’, ‘G’, '\0'}; /* '\0' is string terminator */
+
+*(str+1) = 'n';      /* not an error: String is now GnG */
+```
+
+- a character array, wich has two types itself:  
+  - When a string value is directly assigned to a pointer
+```c++
+char *str  =  "GfG"; /* “GfG” is stored in a shared read-only location,
+                       but pointer str is stored in a read-write memory.
+                       You can change str to point something else but cannot change value at present str.*/
+*(str+1) = 'n';  /* error:  trying to modify read only memory */
+```
+    - When dynamic allocation is used:
+```c++
+char *str;
+int size = 4; // one extra for ‘\0’
+str = (char *)malloc(sizeof(char)*size); /* Stored in heap segment */
+*(str+0) = 'G';
+*(str+1) = 'f';
+*(str+2) = 'G';
+*(str+3) = '\0';
+
+*(str+1) = 'n';  /* not an error: String is now GnG */
+```
+
+```c++
+char *getString()
+{
+  char str[] = "GfG"; /* Stored in stack segment which will be removed when exit the funnction*/
+
+  /* error: string may not be present after getString() returns */
+  /* it can be solved if write static before char, i.e. static char str[] = "GfG"; */
+  return str;
+}
+int main()
+{
+  printf("%s", getString());
+  getchar();
+  return 0;
+}
+```
+### std::string
+The length of the C++ string can be changed at runtime because of dynamic allocation of memory, similar to vectors.
+
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
 # References
-When a variable is declared as a reference, it becomes an alternative name for an existing variable.
-A variable can be declared as a reference by putting `&` in the declaration.
+When a variable is declared as a reference (using `&`), it becomes an alternative name for an existing variable.
+References are used to avoid copying an obj when pass to a function.
 ```cpp
 #include<iostream>
 
 int main()
 {
-  int x = 10;
+  int var = 10;
+  int& ref = var; // ref is a reference to vat
 
-  int& ref = x; /* ref is a reference to x. */
-
-  ref = 20;/* Value of x is now changed to 20 */
-  std::cout << "x = " << x << std::endl ;
+  ref = 20;// Value of x is now changed to 20 
 
   return 0;
 }
 ```
-- Modify the passed parameters in a function: If a function receives a reference to a variable, it can modify the value of the variable.
+* If a function receives a reference to a variable, the value of the variable can be modified within the function.
+* Can be Combined it with `const` to avoid accidental updates of passed var.
 ```cpp
-
 #include<iostream>
 
 void swap (int& first, int& second)
@@ -585,181 +420,175 @@ void swap (int& first, int& second)
     second = temp;
 }
 
+void print(const Student &a)
+{
+    std::cout << a << std::endl ;
+}
+
 int main()
 {
     int a = 2, b = 3;
     swap( a, b );
-    stdstd::cout << a << " " << b;
+
     return 0;
 }
 ```
-- Avoiding a copy of large structures: If we pass an object without reference, a new copy of it is created which wastes CPU time and memory.
- We can use references to avoid this. Can be Combined it with `const` to avoid accidental updates of passed var.
- ```cpp
- struct Student {
-   string name;
-   string address;
-   int rollNo;
-}
 
-void print(const Student &s)
-{
-    cout << s.name << "  " << s.address << "  " << s.rollNo;
-}
- ```
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
 # Reference vs Pointers
 ## Similarities
 - Both can be used to change local variables of one function inside another function.
 - Both of them can be used to avoid copying of big objects when passed as arguments to functions or returned from functions.
 ## Differences
-- A pointer can be declared as void but a reference can never be void For example
+* A pointer can be declared as void but a reference can never be void.
 ```cpp
-int a = 10;
-void* aa = &a;. /* valid */
-void &ar = a; /* not valid */
+int var = 10;
+void* ptr = &var; /* valid, void pointer just does not know the type that is pointing to */
+void &ref = var; /* not valid */
 ```
-- pointer has multi level, but reference has only one level
+* pointer has multi level, but reference has only one level
 ```cpp
 #include <iostream>
 using namespace std;
 
 int main() {
-    int i=10; //simple or ordinary variable.
+    int i=10; 
     int *p=&i; //single pointer
     int **pp=&p; //double pointer
-    // All the above pointers differ in the value they store or point to.
-    cout << "i=" << i << " p=" << p << " pt=" << pp << "\n";
+    // p and pp differ in the value they store or point to
+    cout << " p=" << p << " pt=" << pp << "\n";
     int i=5; //simple or ordinary variable
     int &r=i;
     int &rr=r;
-    // All the above references do not differ in their values
-    // as they all refer to the same variable.
-    std::cout << "i=" << i << " r=" << r " rr=" << rr << "\n";
+    // r and rr do not differ in their values, as they all refer to the same variable.
+    std::cout << " r=" << r << " rr=" << rr << "\n";
  }
 ```
 - Also, members of an object reference can be accessed with dot operator `.`, unlike pointers where arrow operator `->` is needed to access members.
-- reference can not be reset or rereferenced
+- reference can not be reset or rereferenced.
 - References cannot be NULL.
 - A reference must be initialized when declared.
 
-# Strings
-Strigns can be stored in two ways: C style string or C++ style string (string calss)
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
+# Modifiers
+* `static` modifier: It allows a local variable to maintain their values between function calls. It will exist during the life-time of the program, they just come into and go out of scope.
+```c++
+static int i;
+```
 
-## C style string
-a string can be referred to using:
-- 1 a character pointer
-They are stored like other types of arrays in C. For example, if str[] is an auto variable then string is stored in stack segment, if it’s a global or static variable then stored in data segment, etc.
+* `const` modifier: It defines constants:
+```c++
+const int  I = 10;
+const char NewLine = '\n';
+```
 
-```c
-char str[4] = "GfG"; /*One extra for string terminator*/
-/*    OR    */
-char str[4] = {‘G’, ‘f’, ‘G’, '\0'}; /* '\0' is string terminator */
-```
-- 2 a character array, wich has two types itself:
-    - 2.1 When a string value is directly assigned to a pointer, it’s stored in a read-only block that is shared among functions.
-```c++
-char *str  =  "GfG"; /* “GfG” is stored in a shared read-only location,
-                       but pointer str is stored in a read-write memory.
-                       You can change str to point something else but cannot change value at present str.*/
-```
-    - 2.2 When dynamic allocation is used:
-```c++
-char *str;
-int size = 4; /*one extra for ‘\0’*/
-str = (char *)malloc(sizeof(char)*size);
-*(str+0) = 'G';
-*(str+1) = 'f';
-*(str+2) = 'G';
-*(str+3) = '\0';
-```
-Examples:
-```c++
-int main()
+`const char *ptr` : a pointer to a constant character. You cannot change the value pointed by ptr, but you can change the pointer itself. non-const pointer to a const char.
+`const char *ptr` and `char const *ptr` are equivalent as position of `*` is the same. 
+
+`char *const ptr` : a constant pointer to non-constant character. You cannot change the pointer, but can change the value pointed by pointer. 
+
+`const char * const ptr` : a constant pointer to a constant character. You can neither change the value pointed by pointer nor the pointer itself. 
+
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
+# Functions
+
+The parameters passed to function are called *actual parameters*. 
+The parameters received by function are called *formal parameters*. 
+
+## Pass by Value
+values of actual parameters are copied to function’s formal parameters and the two types of parameters are stored in different memory locations. So any changes made inside functions are not reflected in actual parameters of caller.
+
+## Pass by Reference
+Both actual and formal parameters refer to same locations, so any changes made inside the function are actually reflected in actual parameters of caller.
+
+```cpp
+#include <stdio.h>
+void foo1(int var) // gets a copy of value
 {
- char *str;
- str = "GfG";     /* Stored in read only part of data segment */
- *(str+1) = 'n';  /* Problem:  trying to modify read only memory */
- return 0;
+   var = 30;
+}
+
+void foo2(int &ref) // gets its reference
+{
+  ref = 30;
+}
+
+void foo3(int *ptr) /* gets a pointer */
+{
+    *ptr = 30; /* change value of a pointer with dereferencing */
+}
+
+int main(void) {
+  int b = 20;
+
+  foo1(a);  // pass by value
+  foo2(a);  // pass by reference
+  foo3(&a); // pass by pointer
+  return 0;
 }
 ```
-```c++
-int main()
+
+## main function
+It serves as the entry point for the program, that is called by os.
+
+```cpp
+int main() // without argument
 {
- char str[] = "GfG";  /* Stored in stack segment like other auto variables */
- *(str+1) = 'n';      /* No problem: String is now GnG */
- getchar();
- return 0;
-}
-```
-```c++
-int main()
-{
-  int size = 4;
-  /* Stored in heap segment like other dynamically allocated things */
-  char *str = (char *)malloc(sizeof(char)*size);
-  *(str+0) = 'G';
-  *(str+1) = 'f';
-  *(str+2) = 'G';
-  *(str+3) = '\0';
-  *(str+1) = 'n';  /* No problem: String is now GnG */
-   getchar();
+   ...
    return 0;
 }
 ```
-```c++
-char *getString()
+```cpp
+int main(int argc, char * const argv[]) // with argument from command line
 {
-  char *str = "GfG"; /* Stored in read only part of shared segment */
-
-  /* No problem: remains at address str after getString() returns*/
-  return str;
+   ...
+   return 0;
 }
+```
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
+# C style
 
+`memcpy( &dst[dstIdx], &src[srcIdx], numElementsToCopy * sizeof( Element ) );`
+
+```cpp
 int main()
 {
-  printf("%s", getString());
-  getchar();
+  int arr[10] = {8,3,11,61,-22,7,-6,2,13,47};
+  int new_arr[5];
+  memcpy(new_arr,arr,sizeof(int)*5);
+  cout << "After copying" << endl;
+  for (int i=0; i<5; i++)
+    cout << new_arr[i] << endl;
   return 0;
 }
 ```
-```c++
-char *getString()
-{
-  int size = 4;
-  char *str = (char *)malloc(sizeof(char)*size); /*Stored in heap segment*/
-  *(str+0) = 'G';
-  *(str+1) = 'f';
-  *(str+2) = 'G';
-  *(str+3) = '\0';
+```cpp
+  int *ptr = (int *)malloc(sizeof(int)*2);
+  int i;
+  int *ptr_new;
 
-  /* No problem: string remains at str after getString() returns */
-  return str;
-}
-int main()
-{
-  printf("%s", getString());
-  getchar();
-  return 0;
-}
+  *ptr = 10;
+  *(ptr + 1) = 20;
+
+  ptr_new = (int *)realloc(ptr, sizeof(int)*3);// usually to increase size
+  *(ptr_new + 2) = 30;
+  for(i = 0; i < 3; i++)
+    printf("%d ", *(ptr_new + i));
 ```
 
-```c++
-char *getString()
-{
-  char str[] = "GfG"; /* Stored in stack segment */
-
-  /* Problem: string may not be present after getString() returns */
-  /* Problem can be solved if write static before char, i.e. static char str[] = "GfG";*/
-  return str;
-}
-int main()
-{
-  printf("%s", getString());
-  getchar();
-  return 0;
-}
-```
-## C++ style (std::string calss)
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
+<!-- ####################################################################### -->
+# STL
+## std::string
 The length of the C++ string can be changed at runtime because of dynamic allocation of memory similar to vectors.
 ```c++
 #include <bits/stdc++.h>
@@ -781,14 +610,12 @@ int main()
     char ch_b = str6.back();   // Same as "ch_b = str6[str6.length() - 1];"
 
     const char* charstr = str6.c_str();// c_str returns null terminated char array version of string
-    printf("%s\n", charstr);
 
     str6.append(" extension");// append add the argument string at the end
                               //  same as str6 += " extension"
 
     //  find returns index where pattern is found.
-    //  If pattern is not there it returns predefined
-    //  constant npos whose value is -1
+    //  If pattern is not there it returns constant npos whose value is -1
     if (str6.find(str4) != string::npos)
         cout << "str4 found in str6 at " << str6.find(str4)
              << " pos" << endl;
@@ -817,89 +644,9 @@ int main()
     return 0;
 }
 ```
-# Functions
-```cpp
-int max(int, int); /* takes two integers as parameters and returns an integer */
 
-int *swap(int*,int);/* takes a int pointer and an int variable as parameters and returns an pointer of type int */
-
-char *call(char b); /* takes a charas parameters and returns an reference variable */
-```
-The parameters passed to function are called actual parameters. For example, in the above program 10 and 20 are actual parameters.
-The parameters received by function are called formal parameters. For example, in the above program x and y are formal parameters.
-
-## Pass by Value
-values of actual parameters are copied to function’s formal parameters and the two types of parameters are stored in different memory locations. So any changes made inside functions are not reflected in actual parameters of caller.
-## Pass by Reference
-Both actual and formal parameters refer to same locations, so any changes made inside the function are actually reflected in actual parameters of caller.
-```cpp
-#include <stdio.h>
-void fun(int x)
-{
-   x = 30;
-}
-
-int main(void)
-{
-    int x = 20;
-    fun(x);
-    printf("x = %d", x); /* prints still 20 */
-    return 0;
-}
-```
-
-```cpp
-# include <stdio.h>
-void fun(int *ptr) /* gets a pointer*/
-{
-    *ptr = 30; /* change value of a pointer with dereferencing */
-}
-
-int main()
-{
-  int x = 20;
-  fun(&x); /* pass address (pointer) of var x */
-  printf("x = %d", x); /* prints 30 */
-
-  return 0;
-}
-```
-- In C, functions can return any type except arrays and functions. We can get around this limitation by returning pointer to array or pointer to function.
-- good practice to declare a function that can only be called without any parameter, with`void foo(void)`.
-
-## main function
-It serves as the entry point for the program, that is called by os.
-
-- without arguments
-```cpp
-int main()
-{
-   ...
-   return 0;
-}
-```
-- with argument
-```cpp
-int main(int argc, char * const argv[]) /* inputs from command line */
-{
-   ...
-   return 0;
-}
-```
-
-
-
-
-
-
-
-
-
-
-# Pair container
-- `pair (data_type1, data_type2) Pair_name`
-- The first element is referenced as ‘first’ and the second element as ‘second’ and the order is fixed (first, second).
-- Pair is used to combine together two values which may be different in type. Pair provides a way to store two heterogeneous objects as a single unit.
+# std::pair
+The first element is referenced as ‘first’ and the second element as ‘second’ and the order is fixed (first, second).
 ```c++
 #include <iostream>
 #include <utility>
@@ -920,50 +667,6 @@ int main()
     return 0;
 }
 ```
-```cpp
-/* correct */
-myPointer = new int;
-delete myPointer; //freed memory
-myPointer = NULL; //pointed dangling ptr to NULL
-```
-```cpp
-/* wrong */
-myPointer = new int;
-myPointer = NULL; //leaked memory, no pointer to above int
-delete myPointer; //no point at all
-```
-
-pointer + size
-gives pointer to next var in an array or struct
-
 
 # Uncategorized
 https://en.wikipedia.org/wiki/Data_segment
-
-memcpy( &dst[dstIdx], &src[srcIdx], numElementsToCopy * sizeof( Element ) );
-
-
-int main()
-{
-    int arr[10] = {8,3,11,61,-22,7,-6,2,13,47};
-    int new_arr[5];
-
-    memcpy(new_arr,arr,sizeof(int)*5);
-    cout << "After copying" << endl;
-    for (int i=0; i<5; i++)
-        cout << new_arr[i] << endl;
-    return 0;
-}
-
-
-int *ptr = (int *)malloc(sizeof(int)*2);
-   int i;
-   int *ptr_new;
-
-   *ptr = 10;
-   *(ptr + 1) = 20;
-
-   ptr_new = (int *)realloc(ptr, sizeof(int)*3);
-   *(ptr_new + 2) = 30;
-   for(i = 0; i < 3; i++)
-       printf("%d ", *(ptr_new + i));
