@@ -93,7 +93,6 @@ int* p = new int;
 delete p;
 p = NULL;
 ```
-
 To dynamically allocate a *block of memory*: 
 ```C++
 int* q = new int[10];
@@ -105,8 +104,7 @@ delete[] q;
 * Use `[]` to access its memebers.
 * To free the dynamically allocated array (in the heap) pointed by a pointer use `delete[]`.
 
-note: never delete an array that is in the run-time stack. 
-
+NOTE: never delete an array that is in the run-time stack. 
 ```
 int a[100];
 ...
@@ -137,15 +135,8 @@ To avoid multiple declarations, *header* file has the following structure:
 
 # Object Oriented Programming
 * **Class** is like a blueprint. It defines behaviors/states of an object type in terms of *data (instance variables)* and *operations (instance methods)*.
-
 * **Object** is an instance of a class.
-
 * **Method** is a behavior of an object.
-
-Example: A dog has states like color, name, etc and 
-behaviors like barking, eating, etc.
-
-* **Constructors** is a special method that *instantiate (create)* and *initialize* object.
 
 <!--  -->
 <!--  -->
@@ -159,81 +150,42 @@ behaviors like barking, eating, etc.
 ```C++
 int X = 25;
 int* P = &X;
+
+x = x + 5;
+x = *p + 5;
+*p = *p + 5;
 ```
+* `x` and `*p` are identical.
 
-|         | Type | Name | value | address |
-| ------- | -----|------|-------| ------- |
-| integer | int  | X    | 50    | aaaa    |
-| pointer | int* | P    | aaaa  | bbbb    |
+|                    | Type | Name | value | address |
+| ------------------ | -----|------|-------| ------- |
+| integer            | int  | x    | 50    | aaaa    |
+| pointer to integer | int* | p    | aaaa  | bbbb    |
 
-
-* `X` and `*P` are identical.
-```C++
-X = X + 5;
-X = *P + 5;
-*P = *P + 5;
-```
 <!--  -->
 <!--  -->
 <!--  -->
-# Functions
 
-*Return Type*: A function may return a value. The return type is the data type of the value the function returns.
-Some functions perform the desired operations without returning a value. In this case, the *return type* is the keyword `void`.
-
-```c++
-#include <iostream>
-
-// function declaration
-int max(int num1, int num2);
-
-int main () {
-   // local variable declaration:
-   int a = 100;
-   int b = 200;
-   int ret;
-
-   // calling a function to get max value.
-   ret = max(a, b);
-   std::cout << "Max value is : " << ret << std::endl;
-
-   return 0;
-}
-
-// function returning the max between two numbers
-int max(int num1, int num2) {
-   // local variable declaration
-   int result;
-
-   if (num1 > num2)
-      result = num1;
-   else
-      result = num2;
-
-   return result;
-}
-```
 # Class
 ```c++
-class class_name {
-  // member deceleration
+class <class_name> {
   <access_specifier>:
-    <type> <member_name>;
+    <type> <member_name>; // declerations
+    ...
 };
 ```
 
-The *access specifiers* are 
-
+The *access specifiers*: 
 * `private`: accessible only from within other members of the same class (*friends*).
 * `protected`: accessible from other members of the same class (*friends*), also from members of their derived classes.
 * `public`: members are accessible from anywhere where the object is visible.
 
-Example: 
 
 ```c++
 #include <iostream>
 
-class Rectangle 
+class Rectangle {
+  private:
     int width, height;
   public:
     void set_values (int,int);
@@ -252,21 +204,17 @@ int main(){
   return 0;
 }
 ```
-* Scope operator, `::`, is used in the definition of a function member of a class outside the class itself.
-* Access members of a class by inserting a dot `.` between object name and member name.
-* The definition of the member function `area` has been included directly within the definition of class `Rectangle`.
-* Conversely, `set_values` it is merely declared with its prototype within the class, but its definition is outside it.
 
 # Variable
-| Type           | Keyword     | Size
-| ---            | ---         | ---
-|Boolean         | `bool`      |
-|Character       | `char`      |
-|Integer         | `[signed/unsigned] int`       | 4bytes
-|                | `[signed/unsigned] short int` | 2bytes
-|Floating        | `float`     | 4bytes
-|Double floating | `double`    | 8bytes
-|Valueless       | `void`      |
+| Type           | Keyword                       | Size
+| ---            | ---                           | ---
+|Boolean         | `bool`                        | 1 byte
+|Character       | `char`                        | 1 byte
+|Integer         | `[signed/unsigned] int`       | 4 bytes
+|                | `[signed/unsigned] short int` | 2 bytes
+|Floating        | `float`                       | 4 bytes
+|Double floating | `double`                      | 8 bytes
+|Valueless       | `void`                        |
 
 
 * `static` modifier:
